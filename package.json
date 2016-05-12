@@ -1,0 +1,22 @@
+{
+  "name": "nodejs-chatapp",
+  "version": "1.0.0",
+  "description": "NodeJS Chat App",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/risamaki/nodejs-chatapp.git"
+  },
+  "author": "Marissa Tamaki",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/risamaki/nodejs-chatapp/issues"
+  },
+  "homepage": "https://github.com/risamaki/nodejs-chatapp#readme",
+  "dependencies": {
+    "express": "^4.13.4"
+  }
+}
