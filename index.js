@@ -13,8 +13,17 @@ app.get('/', function (req, res) {
 });
 
 // listen on the connection event for incoming sockets --> log it into the console 
-io.on('connection', function (socket) {
-	console.log('a user connected');
+// io.on('connection', function (socket) {
+// 	console.log('An user connected');
+// 	socket.on('disconnect', function() {
+// 		console.log('An user disconnected');
+// 	});
+// });
+
+io.on('connection', function(socket) {
+	socket.on('chat message', function(msg) {
+		io.emit('chat message', msg);
+	});
 });
 
 http.listen(3000, function() {
