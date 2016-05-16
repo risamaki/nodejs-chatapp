@@ -1,33 +1,21 @@
-var express = require ('express');
-var http = require('http').Server(app);
+// Initialize a new express.js instance 
+// requires the config and route files 
+// listens on a port 
+// Start the app by running 'node app.js' in your terminal
 
-// Instantiate a new instance of socket.io by passing the http (HTTP server) object
-var io = require('socket.io')(http);
+var express = require('express'),
+	app = express();
 
-// Instantiate instance of express 
-var app = express();
 
-app.use(express.static(__dirname + 'public'));
+// This is needed if the app is run on heroku
+// var port = process.env.PORT || 8080;
 
-// // In NodeJS, __dirname is always the directory in which the currently executing script resides 
-// app.get('/', function (req, res) {
-// 	res.render('home');
-// });
+// Initialize a new socket.io object. It is bound to the express app, which allows them to 
+// coexist 
 
-// // // listen on the connection event for incoming sockets --> log it into the console 
-// // // io.on('connection', function (socket) {
-// // // 	console.log('An user connected');
-// // // 	socket.on('disconnect', function() {
-// // // 		console.log('An user disconnected');
-// // // 	});
-// // // });
+var io = require('socket.io').listen(app.listen(3000, function() {
+	console.log('Listening on port 3000');
+}));
 
-// // io.on('connection', function(socket) {
-// // 	socket.on('chat message', function(msg) {
-// // 		io.emit('chat message', msg);
-// // 	});
-// // });
-
-app.listen(3000, function() {
-	console.log('listening on port 3000');
-});
+require('./config')(app,io);
+require('./routes')(app,io);

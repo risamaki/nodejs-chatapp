@@ -8,7 +8,7 @@ module.exports = function (app, io) {
 	app.set ('view engine', 'html');
 
 	// Initialize the ejs template engine (?)
-	// app.set ('html', require('ejs').renderFile);
+	app.engine ('html', require('ejs').renderFile);
 
 	// Tell express where it can find the templates;
 	app.set('views', __dirname + '/views');
