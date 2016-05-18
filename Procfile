@@ -1,2 +1,2 @@
 web: node app.js
-heroku scale bot=0
+heroku scale bot=1
