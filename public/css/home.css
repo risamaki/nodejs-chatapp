@@ -1,0 +1,86 @@
+.title {
+	font-size: 3vw;
+    font-weight: 700;
+    letter-spacing: 10px;
+    text-transform: uppercase;
+    margin-top: 12vh;
+    padding: 0;
+    text-align: center;
+    flex: none;
+    max-width: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+label {
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 8px;
+    text-transform: uppercase;
+    margin-top: 2vh;
+    margin-left: 2vh;
+    padding: 0;
+    text-align: center;
+    flex: none;
+    max-width: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.button-container {
+	text-align: center;
+}
+
+.btn-group-lg>.btn, .btn-lg {
+	padding: 20px 32px;
+    font-size: 20px;
+    margin-top: 100px;
+    margin-right: 25px;
+    margin-left: 25px;
+}
+
+.login-form-container, .signup-form-container {
+    position: absolute;
+    margin: auto;
+    top: 10%;
+    bottom: 1%;
+    right: 0;
+    left: 0;
+    width: 60%;
+    height:60%;
+    background-color: white;
+    border-style: solid;
+    border-color: gray;
+    overflow: auto;
+    text-align: center;
+}
+
+.login-form-container .form-control, .signup-form-container .form-control {
+    width: 70%;
+    margin-right: 15%;
+    margin-left: 15%;
+}
+
+.login-form-container .login-form, .signup-form-container .signup-form {
+    margin-top:5%;
+}
+
+#login-page-button, #signup-page-button {
+       margin-top: 40px;
+}
+
+.login-container p {
+    font-size: 20px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-top: 2vh;
+    margin-left: 2vh;
+    padding: 0;
+    text-align: center;
+    flex: none;
+    max-width: 100%;
+    position: relative;
+    overflow: hidden;
+}
+

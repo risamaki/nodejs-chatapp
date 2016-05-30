@@ -1,9 +1,8 @@
-// app.js
 // ========================== Set up ==========================
 
 var express 	= require('express');
 var app 		= express();
-var port 		= process.env.PORT || 3000;
+var port 		= process.env.PORT || 8080;
 var mongoose 	= require ('mongoose');
 var passport 	= require ('passport');
 var flash 		= require ('connect-flash');
@@ -16,8 +15,8 @@ var session			= require ('express-session');
 
 // // ==========================  DB Config ========================== 
 
-// var configDB = require ('./config/database.js');
-// mongoose.connect(configDB.url); // connects to our database
+var configDB = require ('./config/database.js');
+mongoose.connect(configDB.url); // connects to our database
 
 // // ========================== Set up Express Application ==========================
 
@@ -58,7 +57,7 @@ var io = require('socket.io').listen(app.listen(port, function() {
 // ========================== Routes ==========================
 
 // configured passport object is passed to routes.js to be used in routes
-require('./routes')(app,io, passport);
+require('./routes')(app, io, passport);
 
 
 
