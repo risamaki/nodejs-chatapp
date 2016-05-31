@@ -23,17 +23,19 @@ module.exports = function (app, io, passport) {
 // ================== Sign up ================== 
 	app.get ('/signup', function (req, res) {
 		res.render ('signup', {
-			// message: req.flash('signupMessage')
+			message: req.flash('signupMessage')
 		});
 	});
 
-	app.post('/signup', 
-		passport.authenticate ('local-signup', {
-		sucessRedirect: '/chat', // redirect to chat section 
-		failureRedirec: '/signup', // redirect to signup page if there is an error
-		failureFlash: true // allow flash messages
-	}))
-
+	// app.post('/signup', 
+	// 	passport.authenticate ('local-signup', {
+	// 	sucessRedirect: '/chat', // redirect to chat section 
+	// 	failureRedirec: '/signup', // redirect to signup page if there is an error
+	// 	failureFlash: true // allow flash messages
+	// }))
+	app.post('/signup',
+  passport.authenticate('local-signup', {successRedirect: '/chat',
+                                   failureRedirect: '/signup', failureFlash: 'Invalid username or password.' }));
 // ================== Logout  ================== 
 
 	app.get ('/logout', function (req, res) {

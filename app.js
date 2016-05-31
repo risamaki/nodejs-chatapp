@@ -18,12 +18,13 @@ var session			= require ('express-session');
 var configDB = require ('./config/database.js');
 mongoose.connect(configDB.url); // connects to our database
 
+
 // // ========================== Set up Express Application ==========================
 
-// app.use(morgan('dev')); // log every request to the console
-// app.use(cookieParser()); // read cookies (needed for auth)
-// app.use(bodyParser.json()); // get information from html forms
-// app.use(bodyParser.urlencoded({ extended: true }));
+app.use(morgan('dev')); // log every request to the console
+app.use(cookieParser()); // read cookies (needed for auth)
+app.use(bodyParser.json()); // get information from html forms
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // required for passport
 app.use(session({ secret: 'risamakichatapplication' })); // session secret

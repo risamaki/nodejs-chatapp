@@ -14,18 +14,17 @@ module.exports = function (passport) {
 	 * - passport needs ability to serialize and unseralize users of the session
 	 */
 	
-	// reference from website & passport documents
-	// To Serialize 
-	passport.serializeUser (function (user, done) {
-		done (null, user.id);
-	});
+    // used to serialize the user for the session
+    passport.serializeUser(function(user, done) {
+        done(null, user.id);
+    });
 
-	// To Deserialize
-	passport.deserializeUser (function (id, done) {
-		User.findByID (id, function (err, user) {
-			done (err, user);
-		});
-	});
+    // used to deserialize the user
+    passport.deserializeUser(function(id, done) {
+        User.findById(id, function(err, user) {
+            done(err, user);
+        });
+    });
 
 	/**
 	 * ========== Local Signup ==========
