@@ -27,8 +27,12 @@ module.exports = function (app, io, passport) {
 		});
 	});
 
-// process the signup form
-// app.post ('/signup', /** passport stuff **/ ));
+	app.post('/signup', 
+		passport.authenticate ('local-signup', {
+		sucessRedirect: '/chat', // redirect to chat section 
+		failureRedirec: '/signup', // redirect to signup page if there is an error
+		failureFlash: true // allow flash messages
+	}))
 
 // ================== Logout  ================== 
 
