@@ -26,16 +26,24 @@ module.exports = function (app, io, passport) {
 			message: req.flash('signupMessage')
 		});
 	});
-
-	// app.post('/signup', 
-	// 	passport.authenticate ('local-signup', {
-	// 	sucessRedirect: '/chat', // redirect to chat section 
-	// 	failureRedirec: '/signup', // redirect to signup page if there is an error
-	// 	failureFlash: true // allow flash messages
-	// }))
-	app.post('/signup',
-  passport.authenticate('local-signup', {successRedirect: '/chat',
-                                   failureRedirect: '/signup', failureFlash: 'Invalid username or password.' }));
+	// app.post('/signup',
+ //  passport.authenticate('local-signup', {successRedirect: '/chat',
+ //                                   failureRedirect: '/signup', failureFlash: true }));
+   // app.post('/signup', passport.authenticate('local-signup', {
+   //      successRedirect : '/chat', // redirect to the secure profile section
+   //      failureRedirect : '/signup', // redirect back to the signup page if there is an error
+   //      failureFlash : true // allow flash messages
+   //  }));
+   app.post('/signup', function(req, res, next) {
+    console.log(req.url);
+    passport.authenticate('local-signup', function(err, user, info) {
+        console.log("authenticate");
+        console.log(req.body);
+        console.log(err);
+        console.log(user);
+        console.log(info);
+    })(req, res, next);
+});
 // ================== Logout  ================== 
 
 	app.get ('/logout', function (req, res) {
