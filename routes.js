@@ -10,7 +10,7 @@ module.exports = function (app, io, passport) {
 		// render the page and pass in any flash data if it exists
 		// loginMessage will be created inside of passport
 		res.render ('chat', {
-			// message: req.flash('loginMessage')
+			message: req.flash('loginMessage')
 		});
 	});
 
@@ -21,9 +21,15 @@ module.exports = function (app, io, passport) {
 		// render the page and pass in any flash data if it exists
 		// loginMessage will be created inside of passport
 		res.render ('login', {
-			// message: req.flash('loginMessage')
+			message: req.flash('loginMessage')
 		});
 	});
+
+	app.post ('/login', passport.authenticate('local-login', {
+		successRedirect: '/chat',
+		failureRedirect: '/login',
+		failureFlash: true
+	}));
 
 // process the login form
 // app.post('/login', /** passport stuff **/);

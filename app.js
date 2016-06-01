@@ -22,7 +22,13 @@ app.use(morgan('dev')); // log every request to the console
 app.use(cookieParser()); // read cookies (needed for auth)
 
 // Set. html as the default template extension (rather than Jade)
-app.set ('view engine', 'ejs'); 
+// app.set ('view engine', 'ejs'); 
+
+// Set. html as the default template extension (rather than Jade)
+app.set ('view engine', 'html'); 
+
+// Initialize the ejs template engine (?)
+app.engine ('html', require('ejs').renderFile);
 
 // Tell express where it can find the templates;
 app.set('views', __dirname + '/views');
