@@ -59,6 +59,7 @@ module.exports = function (app, io, passport) {
 //     })(req, res, next);
 // });
 // ================== Logout  ================== 
+// TODO: Implement a "You have sucessfully logged out message"
 
 	app.get ('/logout', function (req, res) {
 		req.logout();

@@ -1,12 +1,12 @@
 
-/** {
+/*/** {
 	margin:0;
 	padding:0;
 	box-sizing: border-box;
 }
 */
 
-div {
+/*.chat-container {
 	position: absolute;
 	margin: auto;
 	top: 0;
@@ -19,6 +19,10 @@ div {
 	border-style: dashed;
 	border-color: gray;
 	overflow: auto;
+}
+
+.button-container {
+	margin-top: 40px;
 }
 form {
 	background: #000;
@@ -53,4 +57,4 @@ form button {
 
 #messages li {
 	padding: 5px 10px;
-}
+}*/

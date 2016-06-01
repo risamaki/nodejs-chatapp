@@ -1,3 +1,4 @@
+/** Title for all pages in the chat app **/
 .title {
 	font-size: 3vw;
     font-weight: 700;
@@ -12,6 +13,37 @@
     overflow: hidden;
 }
 
+/** For all the buttons on the page **/
+.button-container {
+    text-align: center;
+}
+
+#logout-button {
+    padding: 15px 25px;
+    font-size: 20px;
+    margin-top:0.5%;
+}
+
+.btn-group-lg>.btn, .btn-lg {
+    padding: 20px 32px;
+    font-size: 20px;
+    margin-top: 100px;
+    margin-right: 25px;
+    margin-left: 25px;
+}
+
+/** All the flash alerts **/
+.alert {
+    position:absolute;
+    margin:auto;    
+    right: 0;
+    left: 0;
+    width: 60%;
+    height:;
+}
+
+
+/** For both login and signup pages **/
 label {
     font-size: 20px;
     font-weight: 700;
@@ -25,18 +57,6 @@ label {
     max-width: 100%;
     position: relative;
     overflow: hidden;
-}
-
-.button-container {
-	text-align: center;
-}
-
-.btn-group-lg>.btn, .btn-lg {
-	padding: 20px 32px;
-    font-size: 20px;
-    margin-top: 100px;
-    margin-right: 25px;
-    margin-left: 25px;
 }
 
 .login-form-container, .signup-form-container {
@@ -65,10 +85,6 @@ label {
     margin-top:5%;
 }
 
-#login-page-button, #signup-page-button {
-       margin-top: 40px;
-}
-
 .login-container p {
     font-size: 20px;
     font-weight: 500;
@@ -84,12 +100,58 @@ label {
     overflow: hidden;
 }
 
-.alert {
-    position:absolute;
-    margin:auto;    
-    right: 0;
-    left: 0;
-    width: 60%;
-    height:;
+/** The styling for the actual chat window **/
+
+#chat-page-title {
+    margin-top: 0;
 }
 
+.chat-container {
+    position: absolute;
+    margin: auto;
+    top: 10%;
+    bottom: 1%;
+    right: 0;
+    left: 0;
+    width: 50%;
+    height:75%;
+    background-color: white;
+    border-style: dashed;
+    border-color: gray;
+    overflow: auto;
+}
+
+.chat-container form {
+    background: #000;
+    padding: 3px;
+    margin:0 auto;
+    width: 90%;
+    position: absolute;
+    bottom: 1%;
+    right: 2px;
+    left: 2px;
+}
+
+.chat-container form input {
+    border: 0;
+    padding: 10px;
+    width: 89%;
+    margin-right: 0.6%;
+}
+
+.chat-container form button {
+    width: 10%;
+    background: #f3f3f3;
+    border: none; 
+    padding: 10px; 
+}
+
+#messages {
+    list-style-type: none; 
+    margin: 0; 
+    padding: 0; 
+}
+
+#messages li {
+    padding: 5px 10px;
+}
