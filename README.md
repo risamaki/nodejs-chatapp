@@ -2,6 +2,6 @@
 
 A simple chat application made using NodeJS and MongoDB
 
-Deployed on Heroku: risamaki-chat.herokuapp.com
+Deployed on Heroku: https://risamaki-chat.herokuapp.com
 
 References: 
