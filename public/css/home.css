@@ -42,7 +42,7 @@ label {
 .login-form-container, .signup-form-container {
     position: absolute;
     margin: auto;
-    top: 10%;
+    top: 15%;
     bottom: 1%;
     right: 0;
     left: 0;
@@ -82,5 +82,14 @@ label {
     max-width: 100%;
     position: relative;
     overflow: hidden;
+}
+
+.alert {
+    position:absolute;
+    margin:auto;    
+    right: 0;
+    left: 0;
+    width: 60%;
+    height:;
 }
 
