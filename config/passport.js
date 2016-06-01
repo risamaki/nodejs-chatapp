@@ -46,7 +46,7 @@ module.exports = function (passport) {
         findOrCreateUser = function() {
                     // find a user whose email is the same as the forms email
         // we are checking to see if the user trying to login already exists
-        User.findOne({ 'email':username }, function(err, user) {
+        User.findOne({ 'local.email':username }, function(err, user) {
             // if there are any errors, return the error
             if (err) {
                 console.log('Error in Signup: ' + err);
@@ -64,8 +64,8 @@ module.exports = function (passport) {
                 var newUser = new User();
 
                 // set the user's local credentials
-                newUser.email    = username;
-                newUser.password = newUser.generateHash(password); // use the generateHash function in our user model
+                newUser.local.email    = username;
+                newUser.local.password = newUser.generateHash(password); // use the generateHash function in our user model
 
                 // save the user
                 newUser.save(function(err) {

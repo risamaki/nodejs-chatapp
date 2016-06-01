@@ -3,7 +3,17 @@ module.exports = function (app, io, passport) {
 // ================== Home Page ================== 
 	app.get ('/', function (req, res) {
 		res.render('index');
-	})
+	});
+// ================== Chat Page ================== 
+	app.get ('/chat', function (req, res) {
+		
+		// render the page and pass in any flash data if it exists
+		// loginMessage will be created inside of passport
+		res.render ('chat', {
+			// message: req.flash('loginMessage')
+		});
+	});
+
 
 // ================== Login ================== 
 	app.get ('/login', function (req, res) {
@@ -26,24 +36,22 @@ module.exports = function (app, io, passport) {
 			message: req.flash('signupMessage')
 		});
 	});
-	// app.post('/signup',
- //  passport.authenticate('local-signup', {successRedirect: '/chat',
- //                                   failureRedirect: '/signup', failureFlash: true }));
-   // app.post('/signup', passport.authenticate('local-signup', {
-   //      successRedirect : '/chat', // redirect to the secure profile section
-   //      failureRedirect : '/signup', // redirect back to the signup page if there is an error
-   //      failureFlash : true // allow flash messages
-   //  }));
-   app.post('/signup', function(req, res, next) {
-    console.log(req.url);
-    passport.authenticate('local-signup', function(err, user, info) {
-        console.log("authenticate");
-        console.log(req.body);
-        console.log(err);
-        console.log(user);
-        console.log(info);
-    })(req, res, next);
-});
+   app.post('/signup', passport.authenticate('local-signup', {
+        successRedirect : '/chat', // redirect to the secure profile section
+        failureRedirect : '/signup', // redirect back to the signup page if there is an error
+        failureFlash : true // allow flash messages
+    }));
+   // For debugging sign up
+//    app.post('/signup', function(req, res, next) {
+//     console.log(req.url);
+//     passport.authenticate('local-signup', function(err, user, info) {
+//         console.log("authenticate");
+//         console.log(req.body);
+//         console.log(err);
+//         console.log(user);
+//         console.log(info);
+//     })(req, res, next);
+// });
 // ================== Logout  ================== 
 
 	app.get ('/logout', function (req, res) {
