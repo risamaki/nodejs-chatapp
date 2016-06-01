@@ -1,4 +1,4 @@
-# nodejs-chatapp
+# Risamaki-Chat
 
 A simple chat application made using NodeJS and MongoDB
 
