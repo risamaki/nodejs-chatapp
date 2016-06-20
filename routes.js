@@ -1,5 +1,5 @@
 // load up the user model
-var User = require('/models/user');
+var User = require('/app/models/user.js');
 var nodemailer = require('nodemailer');
 var async = require('async');
 var crypto = require('crypto');
