@@ -20,21 +20,33 @@ module.exports = function (app, io, passport) {
 		
 		// render the page and pass in any flash data if it exists
 		// loginMessage will be created inside of passport
+		// console.log(req.flash());
 		res.render ('login', {
 			message: req.flash('loginMessage')
 		});
 	});
 
-	app.post ('/login', passport.authenticate('local-login', {
-		successRedirect: '/chat',
-		failureRedirect: '/login',
-		failureFlash: true
-	}));
+	app.post ('/login', function (req, res) {
+		console.log(req.body);
+		req.assert('password', 'Password is empty!').notEmpty();
+		req.assert('username', 'Email is empty!' ).notEmpty();
+		var err = req.validationErrors();
 
-// process the login form
-// app.post('/login', /** passport stuff **/);
+		if (err) {
+			console.log (err);
+			req.flash('loginMessage', 'Incorrect username or password.')
+			req.session.save(function () {
+				res.redirect('/login');
+			});
+		} else {
+			passport.authenticate('local-login', {
+				successRedirect: '/chat',
+				failureRedirect: '/login',
+				failureFlash: true
+			});
+		}
 
-// Forget Password button
+	});
 
 // ================== Sign up ================== 
 	app.get ('/signup', function (req, res) {
@@ -42,24 +54,36 @@ module.exports = function (app, io, passport) {
 			message: req.flash('signupMessage')
 		});
 	});
-   app.post('/signup', passport.authenticate('local-signup', {
-        successRedirect : '/chat', // redirect to the secure profile section
-        failureRedirect : '/signup', // redirect back to the signup page if there is an error
-        failureFlash : true // allow flash messages
-    }));
-   // For debugging sign up
-//    app.post('/signup', function(req, res, next) {
-//     console.log(req.url);
-//     passport.authenticate('local-signup', function(err, user, info) {
-//         console.log("authenticate");
-//         console.log(req.body);
-//         console.log(err);
-//         console.log(user);
-//         console.log(info);
-//     })(req, res, next);
-// });
+   // app.post('/signup', passport.authenticate('local-signup', {
+   //      successRedirect : '/chat', // redirect to the secure profile section
+   //      failureRedirect : '/signup', // redirect back to the signup page if there is an error
+   //      failureFlash : true // allow flash messages
+   //  }));
+
+   	app.post ('/signup', function (req, res) {
+		console.log(req.body);
+		req.assert('password', 'Password is empty!').notEmpty();
+		req.assert('username', 'Email is empty!' ).notEmpty();
+		var err = req.validationErrors();
+
+		if (err) {
+			console.log (err);
+			req.flash('signupMessage', 'Incorrect signup information.')
+			req.session.save(function () {
+				res.redirect('/signup');
+			});
+		} else {
+			passport.authenticate('local-signup', {
+				successRedirect: '/chat',
+				failureRedirect: '/signup',
+				failureFlash: true
+			});
+		}
+
+	});
+
 // ================== Logout  ================== 
-// TODO: Implement a "You have sucessfully logged out message"
+// TODO: Implement a "You"
 
 	app.get ('/logout', function (req, res) {
 		req.logout();
