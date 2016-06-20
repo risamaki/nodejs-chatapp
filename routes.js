@@ -5,7 +5,7 @@ module.exports = function (app, io, passport) {
 		res.render('index');
 	});
 // ================== Chat Page ================== 
-	app.get ('/chat', function (req, res) {
+	app.get ('/chat', isLoggedIn, function (req, res) {
 		
 		// render the page and pass in any flash data if it exists
 		// loginMessage will be created inside of passport
