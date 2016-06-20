@@ -58,7 +58,7 @@ label {
     position: relative;
     overflow: hidden;
 }
-.login-form-container, .signup-form-container, .forgot-form-container{
+.login-form-container, .signup-form-container, .forgot-form-container, .resetpassword-form-container{
     position: absolute;
     margin: auto;
     top: 15%;
@@ -74,13 +74,13 @@ label {
     text-align: center;
 }
 
-.login-form-container .form-control, .signup-form-container .form-control, .forgot-form-container .form-control {
+.login-form-container .form-control, .signup-form-container .form-control, .forgot-form-container .form-control, .resetpassword-form-container .form-control  {
     width: 70%;
     margin-right: 15%;
     margin-left: 15%;
 }
 
-.login-form-container form, .signup-form-container form, .forgot-form-container form {
+.login-form-container form, .signup-form-container form, .forgot-form-container form, .reset-form-container form {
     margin-top:5%;
 }
 
@@ -99,9 +99,6 @@ label {
     overflow: hidden;
 }
 
-.login-container form, .signup-form-container form {
-    margin-top: 5%;
-}
 /** The styling for the actual chat window **/
 
 #chat-page-title {

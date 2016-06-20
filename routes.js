@@ -8,7 +8,9 @@ module.exports = function (app, io, passport) {
 
 // ================== Home Page ================== 
 	app.get ('/', function (req, res) {
-		res.render('index');
+		res.render('index', {
+			message: req.flash('indexMessage')
+		});
 	});
 // ================== Chat Page ================== 
 	app.get ('/chat', isLoggedIn, function (req, res) {
@@ -19,7 +21,6 @@ module.exports = function (app, io, passport) {
 			message: req.flash('loginMessage')
 		});
 	});
-
 
 // ================== Login ================== 
 	app.get ('/login', function (req, res) {
@@ -62,11 +63,6 @@ module.exports = function (app, io, passport) {
 			message: req.flash('signupMessage')
 		});
 	});
-   // app.post('/signup', passport.authenticate('local-signup', {
-   //      successRedirect : '/chat', // redirect to the secure profile section
-   //      failureRedirect : '/signup', // redirect back to the signup page if there is an error
-   //      failureFlash : true // allow flash messages
-   //  }));
 
    	app.post ('/signup', function (req, res) {
 		console.log(req.body);
@@ -122,8 +118,8 @@ module.exports = function (app, io, passport) {
 	          return res.redirect('/forgot');
 	        }
 
-	        user.resetPasswordToken = token;
-	        user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
+	        user.local.resetPasswordToken = token;
+	        user.local.resetPasswordExpires = Date.now() + 3600000; // 1 hour
 
 	        user.save(function(err) {
 	          done(err, token, user);
@@ -148,7 +144,7 @@ module.exports = function (app, io, passport) {
 	          'http://' + req.headers.host + '/reset/' + token + '\n\n' +
 	          'If you did not request this, please ignore this email and your password will remain unchanged.\n'
 	      };
-	      
+
 	      smtpTransport.sendMail(mailOptions, function(err) {
 	        req.flash('forgotPasswordMessage', 'An e-mail has been sent to ' + user.local.email + ' with further instructions.');
 	        done(err, 'done');
@@ -158,6 +154,71 @@ module.exports = function (app, io, passport) {
 	    if (err) return next(err);
 	    res.redirect('/forgot');
 	  });
+});
+
+// ================== Reset Password  ================== 
+	// app.get ('/reset', function (req, res) {
+	// 		res.render ('reset', {
+	// 		message: req.flash('resetPasswordMessage')
+	// 	});
+	// });
+app.get('/reset/:token', function(req, res) {
+  User.findOne({ 'local.resetPasswordToken': req.params.token, 'local.resetPasswordExpires': { $gt: Date.now() } }, function(err, user) {
+    if (!user) {
+      req.flash('forgotPasswordMessage', 'Password reset token is invalid or has expired.');
+      return res.redirect('/forgot');
+    }
+    res.render('reset', {
+      // user: req.user
+      message: req.flash('resetPasswordMessage')
+    });
+  });
+});
+
+app.post('/reset/:token', function(req, res) {
+	console.log(req.body);
+  async.waterfall([
+    function(done) {
+      User.findOne({ 'local.resetPasswordToken': req.params.token, 'local.resetPasswordExpires': { $gt: Date.now() } }, function(err, user) {
+        if (!user) {
+          req.flash('forgotPasswordMessage', 'Password reset token is invalid or has expired.');
+          return res.redirect('/forgot');
+        }
+
+        user.local.password = user.generateHash(req.body.newpassword);
+        user.local.resetPasswordToken = undefined;
+        user.local.resetPasswordExpires = undefined;
+
+        user.save(function(err) {
+          req.logIn(user, function(err) {
+            done(err, user);
+          });
+        });
+      });
+    },
+    function(user, done) {
+      var smtpTransport = nodemailer.createTransport('SMTP', {
+	        service: 'gmail',
+	        auth: {
+	          user: 'risamakigit',
+	          pass: 'Passwordgit'
+	        }
+      });
+      var mailOptions = {
+        to: user.email,
+        from: 'risamaki@gmail.com',
+        subject: 'Your password has been changed',
+        text: 'Hello,\n\n' +
+          'This is a confirmation that the password for your account ' + user.local.email + ' has just been changed.\n'
+      };
+      smtpTransport.sendMail(mailOptions, function(err) {
+        // req.flash('success', 'Success! Your password has been changed.');
+        done(err);
+      });
+    }
+  ], function(err) {
+    res.redirect('/chat');
+  });
 });
 
 // ================== Chat Connectoin ================== 
