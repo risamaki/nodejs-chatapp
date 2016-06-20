@@ -1,5 +1,5 @@
 // load up the user model
-var User = require('../nodejs-chatapp/models/user');
+var User = require('models/user');
 var nodemailer = require('nodemailer');
 var async = require('async');
 var crypto = require('crypto');
