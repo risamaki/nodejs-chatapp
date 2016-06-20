@@ -28,8 +28,8 @@ module.exports = function (app, io, passport) {
 
 	app.post ('/login', function (req, res) {
 		console.log(req.body);
-		req.checkBody('username', 'Email is empty!' ).notEmpty();
-		req.checkBody('username', 'Email is not valid!').isEmail();
+		req.checkBody('email', 'Email is empty!' ).notEmpty();
+		req.checkBody('email', 'Email is not valid!').isEmail();
 		req.checkBody('password', 'Password is empty!').notEmpty();
 	
 		var err = req.validationErrors();
@@ -45,7 +45,7 @@ module.exports = function (app, io, passport) {
 				successRedirect: '/chat',
 				failureRedirect: '/login',
 				failureFlash: true
-			});
+			})(req,res);
 		}
 
 	});
@@ -64,8 +64,8 @@ module.exports = function (app, io, passport) {
 
    	app.post ('/signup', function (req, res) {
 		console.log(req.body);
-		req.checkBody('username', 'Email is empty!' ).notEmpty();
-		req.checkBody('username', 'Email is not valid!').isEmail();
+		req.checkBody('email', 'Email is empty!' ).notEmpty();
+		req.checkBody('email', 'Email is not valid!').isEmail();
 		req.checkBody('password', 'Password is empty!').notEmpty();
 		var err = req.validationErrors();
 
@@ -80,7 +80,7 @@ module.exports = function (app, io, passport) {
 				successRedirect: '/chat',
 				failureRedirect: '/signup',
 				failureFlash: true
-			});
+			})(req,res);
 		}
 
 	});
