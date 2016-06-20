@@ -11,30 +11,20 @@
 </head>
 
 <body>
-  <div class="login-container">
-    <div class="title"> Login </div>
+  <div class="forgot-container">
+    <div class="title"> Forgot Password </div>
      <!-- show any messages that come back with authentication -->
     <% if (message.length > 0) { %>
         <div class="alert alert-danger"><%= message %></div>
     <% } %>
-    <div class="login-form-container">
-      <form action="/login" method="post">
+    <div class="forgot-form-container">
+      <form action="/forgot" method="post">
         <div class="form-group">
-            <label>Username</label>
-            <input type="text" class="form-control" name="username">
-        </div>
-        <div class="form-group">
-            <label>Password</label>
-            <input type="password" class="form-control" name="password">
-        </div>
-        <div class="signup-from-login"> 
-            <p> Need an account? <a href="/signup"> Signup here </a></p>
-        </div>
-        <div class="forgot-password-link">
-            <p><a href="/forgot"> Forgot your password?</a></p>
+            <label>Email</label>
+            <input type="text" class="form-control" name="email">
         </div>
         <div class="button-container">
-            <button id="login-page-button" type="submit" class="btn btn-default btn-lg">Login</button>
+            <button id="forgot-page-button" type="submit" class="btn btn-default btn-lg">Reset Password</button>
         </div>
       </form>
     </div>

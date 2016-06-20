@@ -58,8 +58,23 @@ label {
     position: relative;
     overflow: hidden;
 }
+.forgot-form-container {
+    position: absolute;
+    margin: auto;
+    top: 15%;
+    bottom: 1%;
+    right: 0;
+    left: 0;
+    width: 60%;
+    height:40%;
+    background-color: white;
+    border-style: solid;
+    border-color: gray;
+    overflow: auto;
+    text-align: center;
+}
 
-.login-form-container, .signup-form-container {
+.login-form-container, .signup-form-container{
     position: absolute;
     margin: auto;
     top: 15%;
@@ -75,13 +90,13 @@ label {
     text-align: center;
 }
 
-.login-form-container .form-control, .signup-form-container .form-control {
+.login-form-container .form-control, .signup-form-container .form-control, .forgot-form-container .form-control {
     width: 70%;
     margin-right: 15%;
     margin-left: 15%;
 }
 
-.login-form-container .login-form, .signup-form-container .signup-form {
+.login-form-container form, .signup-form-container form, .forgot-form-container form {
     margin-top:5%;
 }
 

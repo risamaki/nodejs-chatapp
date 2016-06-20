@@ -87,12 +87,19 @@ module.exports = function (app, io, passport) {
 	});
 
 // ================== Logout  ================== 
-// TODO: Implement a "You"
 
 	app.get ('/logout', function (req, res) {
 		req.logout();
 		res.redirect('/');
 	})
+
+// ================== Forgot Password  ================== 
+	app.get ('/forgot', function (req, res) {
+			
+			res.render ('forgot', {
+			message: req.flash('forgotPasswordMessage')
+		});
+	});
 
 // ================== Chat Connectoin ================== 
 
