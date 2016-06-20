@@ -4,9 +4,10 @@ A simple chat application made using NodeJS and MongoDB
 
 Functionality: 
 * Make an account 
-* Sign up with a pervious made account
-* Logout
+* Sign up with a previously made account
 * Login / Sign up and go to chat window
+* Logout
+
 
 List of pages:
 * Home Page
@@ -14,9 +15,7 @@ List of pages:
 * Logout
 * Sign up
 * Chat Window 
-* Reset 
-* User Account (to update password)
-* Reset Password page (where users can )
+* Reset password page
 
 Deployed on Heroku: https://risamaki-chat.herokuapp.com
 

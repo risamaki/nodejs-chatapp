@@ -28,8 +28,10 @@ module.exports = function (app, io, passport) {
 
 	app.post ('/login', function (req, res) {
 		console.log(req.body);
-		req.assert('password', 'Password is empty!').notEmpty();
-		req.assert('username', 'Email is empty!' ).notEmpty();
+		req.checkBody('username', 'Email is empty!' ).notEmpty();
+		req.checkBody('username', 'Email is not valid!').isEmail();
+		req.checkBody('password', 'Password is empty!').notEmpty();
+	
 		var err = req.validationErrors();
 
 		if (err) {
@@ -62,8 +64,9 @@ module.exports = function (app, io, passport) {
 
    	app.post ('/signup', function (req, res) {
 		console.log(req.body);
-		req.assert('password', 'Password is empty!').notEmpty();
-		req.assert('username', 'Email is empty!' ).notEmpty();
+		req.checkBody('username', 'Email is empty!' ).notEmpty();
+		req.checkBody('username', 'Email is not valid!').isEmail();
+		req.checkBody('password', 'Password is empty!').notEmpty();
 		var err = req.validationErrors();
 
 		if (err) {
