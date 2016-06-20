@@ -58,23 +58,7 @@ label {
     position: relative;
     overflow: hidden;
 }
-.forgot-form-container {
-    position: absolute;
-    margin: auto;
-    top: 15%;
-    bottom: 1%;
-    right: 0;
-    left: 0;
-    width: 60%;
-    height:40%;
-    background-color: white;
-    border-style: solid;
-    border-color: gray;
-    overflow: auto;
-    text-align: center;
-}
-
-.login-form-container, .signup-form-container{
+.login-form-container, .signup-form-container, .forgot-form-container{
     position: absolute;
     margin: auto;
     top: 15%;

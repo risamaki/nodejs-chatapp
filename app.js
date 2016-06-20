@@ -12,10 +12,6 @@ var bodyParser			= require ('body-parser');
 var expressValidator	= require ('express-validator');	
 var session				= require ('express-session');
 
-var nodemailer = require('nodemailer');
-var async = require('async');
-var crypto = require('crypto');
-
 var app = express();
 // // ==========================  DB Config ========================== 
 
