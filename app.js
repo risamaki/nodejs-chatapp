@@ -26,7 +26,8 @@ app.use(cookieParser()); // read cookies (needed for auth)
 app.use(session({ secret: 'risamakichatapplication',
 							saveUnitialized: true,
 							resave: true,
-							store: new MongoStore({mongooseConnection: mongoose.connection}) })); // session secret
+							store: new MongoStore({mongooseConnection: mongoose.connection,
+													ttl: 2 * 24 * 60 * 60}) })); // session secret
 
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
