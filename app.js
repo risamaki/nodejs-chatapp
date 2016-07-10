@@ -11,6 +11,7 @@ var cookieParser		= require ('cookie-parser');
 var bodyParser			= require ('body-parser');
 var expressValidator	= require ('express-validator');	
 var session				= require ('express-session');
+var MongoStore  		= require ('connect-mongo')(session); 
 
 var app = express();
 // // ==========================  DB Config ========================== 
@@ -19,13 +20,18 @@ var dbConfig = require('./config/database.js');
 mongoose.connect(dbConfig.url);
 
 // // ========================== Set up Express Application ==========================
-// required for passport
-app.use(session({ secret: 'risamakichatapplication' })); // session secret
+
+// Cookie Parser must come before the session
+app.use(cookieParser()); // read cookies (needed for auth)
+app.use(session({ secret: 'risamakichatapplication',
+							saveUnitialized: true,
+							resave: true,
+							store: new MongoStore({mongooseConnection: mongoose.connection}) })); // session secret
+
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 app.use(morgan('dev')); // log every request to the console
-app.use(cookieParser()); // read cookies (needed for auth)
-
+ 
 // Set. html as the default template extension (rather than Jade)
 app.set ('view engine', 'ejs'); 
 
@@ -41,18 +47,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(expressValidator());
 
 app.use(flash()); // use connect-flash for flash messages stored in session
-// app.use(function (req, res, next) {
-// 	res.locals.message = req.flash();
-// 	next();
-// });
 
-
-// app.use (session ({
-// 	secret: 'nodejschatapp'
-// }));
-// app.use (passport.initialize());
-// app.use (passport.session()); // necessary for persistent login sessions
-// app.use (flash()); // use connect-flash for flash messages stored in session
 require('./config/passport')(passport); // pass passport for configuration
 
 // // ========================== Socket.io Connection ==========================
