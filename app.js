@@ -1,7 +1,7 @@
 // ========================== Set up ==========================
 
 var express 	= require('express');
-var port 		= process.env.PORT || 3000;
+var port 		= process.env.PORT || 3010;
 var flash 		= require ('connect-flash');
 var mongoose 	= require ('mongoose');
 var passport 	= require ('passport');
@@ -12,8 +12,14 @@ var bodyParser			= require ('body-parser');
 var expressValidator	= require ('express-validator');	
 var session				= require ('express-session');
 var MongoStore  		= require ('connect-mongo')(session); 
+var SessionStore = new MongoStore({mongooseConnection: mongoose.connection,
+													ttl: 2 * 24 * 60 * 60})
+var passportSocket 		= require ("passport.socketio");
 
 var app = express();
+// Has to be below the app variable
+// var server 	= require('http').Server(app); // creates http server 
+// var io 		= require('socket.io')(server); //sets up websocket server to run in same app
 // // ==========================  DB Config ========================== 
 
 var dbConfig = require('./config/database.js');
@@ -26,11 +32,10 @@ app.use(cookieParser()); // read cookies (needed for auth)
 app.use(session({ secret: 'risamakichatapplication',
 							saveUnitialized: true,
 							resave: true,
-							store: new MongoStore({mongooseConnection: mongoose.connection,
-													ttl: 2 * 24 * 60 * 60}) })); // session secret
+							store: SessionStore})); // session secret
 
 app.use(passport.initialize());
-app.use(passport.session()); // persistent login sessions
+app.use(passport.session()); // session secret)); // persistent login sessions
 app.use(morgan('dev')); // log every request to the console
  
 // Set. html as the default template extension (rather than Jade)
@@ -56,6 +61,34 @@ require('./config/passport')(passport); // pass passport for configuration
 var io = require('socket.io').listen(app.listen(port, function() {
 	console.log('Listening on port ' + port);
 }));
+
+io.use(passportSocket.authorize( {
+	cookieParser: 	cookieParser,
+	key: 			'connect.sid',
+	secret: 		'risamakichatapplication',
+	store: 			SessionStore,
+	sucess: 		onAuthorizeSuccess,
+	fail: 			onAuthorizeFail,
+}));
+
+function onAuthorizeSuccess(data, accept){
+  console.log('successful connection to socket.io');
+  // The accept-callback still allows us to decide whether to
+  // accept the connection or not.
+  accept(null, true);
+
+}
+
+function onAuthorizeFail(data, message, error, accept){
+  if(error)
+    throw new Error(message);
+  console.log('failed connection to socket.io:', message);
+
+  // We use this callback to log all of our failed connections.
+  accept(null, false);
+
+}
+
 
 // ========================== Routes ==========================
 

@@ -18,7 +18,8 @@ module.exports = function (app, io, passport) {
 		// render the page and pass in any flash data if it exists
 		// loginMessage will be created inside of passport
 		res.render ('chat', {
-			message: req.flash('loginMessage')
+			message: req.flash('loginMessage'),
+			username: req.user.username
 		});
 	});
 
@@ -224,20 +225,25 @@ app.post('/reset/:token', function(req, res) {
 // ================== Chat Connectoin ================== 
 
 	io.on ('connection', function (socket) {
-		socket.on('chat message', function(msg) {
-			io.emit('chat message', msg);
+		socket.on('send message', function(msg) {
+			console.log(socket.request.user);
+
+			// if you want to send to all users (including yourself)
+			io.emit('new message', msg);
+
+			//if you want to send to all users beside yourself
+			// socket.broadcast.emit('new message', data);
 		})
-	})
+	});
+
 };
 
 // route middleware to make sure a user is logged in
 
 function isLoggedIn (req, res, next) {
-	
 	// if user is autheticated in the session, carry on 
 	if (req.isAuthenticated()) 
 		return next();
-
 	// if they arent, redirect them to the home page
 	res.redirect('/');
 };

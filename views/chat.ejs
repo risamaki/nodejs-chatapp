@@ -10,35 +10,53 @@
 
   <body>
   <div class="chat-app-container">
-  <div class="title" id="chat-page-title"> Chat Page</div>
+    <!-- Title --> 
+    <div class="title" id="chat-page-title">Chat Page</div>
+    <!--Logout Button -->
     <div class="button-container">
        <a href="/logout" id="logout-button" class="btn btn-default btn-lg">Logout</a>
     </div>
     <div class="chat-container"> 
-        <div>
-          <ul id="messages"></ul>
-        </div>
-        <form action="">
-          <input id="m" autocomplete="off" /><button>Send</button>
-        </form>    
+      <div>
+        <ul id="messages"></ul>
+      </div>
+      <form action="">
+        <input id="message" autocomplete="off" /><button>Send</button>
+      </form>    
     </div>
-
   </div>
-    <!-- Scripts -->
-    <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
-    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
-    
-    <!-- Code for Scripts -->
-    <script>
-      var socket = io();
-      $('form').submit(function(){
-        socket.emit('chat message', $('#m').val());
-        $('#m').val('');
-        return false;
-      });
-      socket.on('chat message', function(msg){
-        $('#messages').append($('<li>').text(msg));
-      });
-    </script>
+
+<!--     <div class="chat-container">
+        <form id="send-message">
+          <input size="35" id="message"></input>
+         <input type="submit"> </input>
+        </form> 
+    </div>   
+  </div>
+ -->
+
+  <!-- Scripts -->
+  <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+  <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+
+  <!-- Code for Scripts -->
+  <script>
+    var socket = io();
+
+    var $messageForm = $('form');
+    var $m = $('#message');
+
+    $messageForm.submit(function(){
+      socket.emit('send message', $m.val());
+      $m.val('');
+      return false;
+    });
+
+    socket.on('new message', function(msg){
+      $('#messages').append($('<li>').text(msg));
+    });
+
+  </script>
+
   </body>
 </html>
