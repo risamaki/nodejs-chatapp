@@ -112,7 +112,7 @@ label {
     bottom: 1%;
     right: 0;
     left: 0;
-    width: 65%;
+    width: 50%;
     height:65%;
     background-color: white;
     border-style: dashed;
@@ -153,6 +153,10 @@ label {
 
 #messages li {
     padding: 5px 10px;
+    font-size: 0.8vw;
+    font-weight: 700;
+    letter-spacing: 5px;
+    text-transform: uppercase;
 }
 
 #connected_users {

@@ -226,18 +226,18 @@ app.post('/reset/:token', function(req, res) {
 // ================== Chat Connectoin ================== 
 
 	io.on ('connection', function (socket) {
-			// console.log(socket.request.user);
 
 		var connected = Object.keys(io.sockets.sockets).length;
-		console.log(connected);
 		io.emit('number users', connected);
+		socket.nickname = socket.request.user.local.username;
+		console.log(socket.nickname);
 
 		socket.on('disconnect', function () {
 			console.log("Number of connected users: " +  Object.keys(io.sockets.sockets).length);
 		});
 
-		socket.on('send message', function(msg) {
-			io.emit('new message', msg);
+		socket.on('send message', function(data) {
+			io.sockets.emit('new message', {msg: data, nick: socket.nickname});
 		});
 
 	});
