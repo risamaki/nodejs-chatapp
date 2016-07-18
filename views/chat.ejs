@@ -16,7 +16,9 @@
     <div class="button-container">
        <a href="/logout" id="logout-button" class="btn btn-default btn-lg">Logout</a>
     </div>
+   <div id="connected_users"> Number of connected users: </div>
     <div class="chat-container"> 
+      
       <div>
         <ul id="messages"></ul>
       </div>
@@ -45,6 +47,11 @@
 
     var $messageForm = $('form');
     var $m = $('#message');
+    var $users = $('#connected_users');
+
+    socket.on('number users', function (data) {
+      $users.html("Number of connected users: " + data);
+    })
 
     $messageForm.submit(function(){
       socket.emit('send message', $m.val());

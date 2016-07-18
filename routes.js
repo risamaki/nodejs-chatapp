@@ -3,6 +3,7 @@ var User = require('./models/user.js');
 var nodemailer = require('nodemailer');
 var async = require('async');
 var crypto = require('crypto');
+var connectCounter;
 
 module.exports = function (app, io, passport) {
 
@@ -225,15 +226,20 @@ app.post('/reset/:token', function(req, res) {
 // ================== Chat Connectoin ================== 
 
 	io.on ('connection', function (socket) {
+			// console.log(socket.request.user);
+
+		var connected = Object.keys(io.sockets.sockets).length;
+		console.log(connected);
+		io.emit('number users', connected);
+
+		socket.on('disconnect', function () {
+			console.log("Number of connected users: " +  Object.keys(io.sockets.sockets).length);
+		});
+
 		socket.on('send message', function(msg) {
-			console.log(socket.request.user);
-
-			// if you want to send to all users (including yourself)
 			io.emit('new message', msg);
+		});
 
-			//if you want to send to all users beside yourself
-			// socket.broadcast.emit('new message', data);
-		})
 	});
 
 };
